@@ -1,0 +1,148 @@
+.modal-content {
+  width: 700px;
+  padding: 30px;
+  background-color: #fff;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.user-icon {
+  position: relative;
+  font-size: 150px;
+  color: #6c757d;
+  width: 150px;
+  height: 150px;
+}
+
+.user-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.upload-image {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.settings-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.settings-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.edit-face-id,
+.delete-user {
+  width: 160px;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.edit-face-id {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-face-id:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.delete-user {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-user:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.settings-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-left: 30px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #495057;
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  width: 260px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #343a40;
+}
+
+.right-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.edit-face-id,
+.delete-user {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-user {
+  background-color: #dc3545;
+}
+
+.done-button {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #343a40;
+  color: white;
+  align-self: flex-end;
+  margin-top: 5px;
+}
+
+.done-button:hover {
+  background-color: #343a40;
+  transform: translateY(-2px);
+}

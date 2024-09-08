@@ -1,0 +1,24 @@
+.g-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: none;
+  background-color: #fb8989;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.g-button:hover {
+  background-color: #f24d4d;
+  transform: scale(1.03);
+}
+
+.g-icon {
+  font-size: 1.2rem;
+}
