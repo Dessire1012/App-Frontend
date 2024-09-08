@@ -32,9 +32,18 @@ const Navbar = ({ userName }) => {
         {isDropdownOpen && (
           <ul className="dropdown-menu">
             <li>
-              <a onClick={openSilaboModal}>
-                <FaFilePdf style={{ marginRight: "8px" }} /> Silabo
-              </a>
+              <button
+                onClick={openSilaboModal}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "blue",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                }}
+              >
+                Open Silabo Modal
+              </button>
             </li>
             <hr className="menu-divider" />
             <li>
