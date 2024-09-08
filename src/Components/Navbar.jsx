@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Styles/Navbar.css";
-import { FaUser, FaCog, FaSignOutAlt, FaFilePdf } from "react-icons/fa";
+import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Settings from "./Settings";
 
 const Navbar = ({ userName }) => {
