@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Styles/Navbar.css";
-import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa"; // Eliminado FaFilePdf ya que no se utiliza
 import Settings from "./Settings";
 
 const Navbar = ({ userName }) => {
@@ -16,7 +16,6 @@ const Navbar = ({ userName }) => {
 
   const openSettingsModal = () => setIsSettingsModalOpen(true);
   const closeSettingsModal = () => setIsSettingsModalOpen(false);
-  //aasdasd
 
   return (
     <nav className="navbar">
@@ -47,9 +46,17 @@ const Navbar = ({ userName }) => {
             </li>
             <hr className="menu-divider" />
             <li>
-              <a onClick={openSettingsModal}>
+              <button
+                onClick={openSettingsModal}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "blue",
+                  cursor: "pointer",
+                }}
+              >
                 <FaCog style={{ marginRight: "8px" }} /> Settings
-              </a>
+              </button>
             </li>
             <li>
               <a href="/">
