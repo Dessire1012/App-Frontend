@@ -53,7 +53,7 @@ function GBttn() {
         user = await registerUser({ user_id, name, email, password, photo });
         console.log("User registered", user);
       }
-      navigate(`/chatbot/${user_id}`);
+      navigate("/chatbot", { state: { userId: user_id } });
     } catch (error) {
       console.error("Operation failed", error);
     }

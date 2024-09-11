@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./Styles/Chatbot.css";
 import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { getUserById } from "../Backend/API";
 
-const Chatbot = ({ userId }) => {
+const Chatbot = () => {
+  const location = useLocation();
+  const { userId } = location.state || {};
+
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [userName, setUserName] = useState("");
