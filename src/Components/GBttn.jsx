@@ -10,13 +10,20 @@ function GBttn() {
     try {
       const token = response.credential;
       const decodedToken = jwtDecode(token);
-      const userId = decodedToken.sub;
-      console.log("User ID", userId);
+      const googleId = decodedToken.sub;
+      console.log("Google ID", googleId);
 
-      const user = await loginUser({ id: userId });
-      console.log("User logged in", user);
+      let user;
+      try {
+        user = await loginUser({ googleId });
+        console.log("User logged in", user);
+      } catch (loginError) {
+        console.error("Login failed, attempting to register", loginError);
+        user = await registerUser({ googleId });
+        console.log("User registered", user);
+      }
     } catch (error) {
-      console.error("Login failed", error);
+      console.error("Operation failed", error);
     }
   };
 
