@@ -11,6 +11,7 @@ function GBttn() {
       const token = response.credential;
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.sub;
+      console.log("User ID", userId);
 
       const user = await loginUser({ id: userId });
       console.log("User logged in", user);
