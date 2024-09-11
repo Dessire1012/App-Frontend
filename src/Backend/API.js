@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io/user";
+const API_URL =
+  "https://app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io/user";
 
 export const loginUser = async (credentials) => {
   try {
