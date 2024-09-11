@@ -1,18 +1,44 @@
 import React from "react";
-import "./Styles/GBttn.css";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import { FaGoogle } from "react-icons/fa";
+import { loginUser } from "../Backend/API";
+import "./Styles/GBttn.css";
 
 function GBttn() {
-  const handleGoogleLogin = () => {
-    window.location.href =
-      "https://app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io/auth/google";
+  const handleSuccess = async (response) => {
+    try {
+      const token = response.credential;
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.sub;
+
+      const user = await loginUser({ id: userId });
+      console.log("User logged in", user);
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
+  const handleError = (error) => {
+    console.error("Login failed", error);
   };
 
   return (
-    <button className="g-button" onClick={handleGoogleLogin}>
-      <FaGoogle className="g-icon" />
-      Connect with Google
-    </button>
+    <GoogleLogin
+      onSuccess={handleSuccess}
+      onError={handleError}
+      buttonText="Connect with Google"
+      render={(renderProps) => (
+        <button
+          className="g-button"
+          onClick={renderProps.onClick}
+          disabled={renderProps.disabled}
+        >
+          <FaGoogle className="g-icon" />
+          Connect with Google
+        </button>
+      )}
+    />
   );
 }
 
