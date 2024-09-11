@@ -14,6 +14,7 @@ const Chatbot = () => {
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
   const location = useLocation();
+  const domain = "vanguardchat.netlify.app";
 
   useEffect(() => {
     const propUserId = location.state?.userId;
