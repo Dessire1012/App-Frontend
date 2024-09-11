@@ -10,6 +10,7 @@ const Chatbot = ({ userId }) => {
   const [userName, setUserName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
+  console.log(userId);
 
   useEffect(() => {
     if (userId) {
