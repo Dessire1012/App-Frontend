@@ -38,6 +38,7 @@ function GBttn() {
       console.log("Name", name);
       console.log("Email", email);
       console.log("Generated Password", password);
+      console.log("Photo URL", photo);
 
       let user;
       try {
@@ -45,7 +46,7 @@ function GBttn() {
         console.log("User logged in", user);
       } catch (loginError) {
         console.error("Login failed, attempting to register", loginError);
-        user = await registerUser({ user_id, name, email, password });
+        user = await registerUser({ user_id, name, email, password, photo });
         console.log("User registered", user);
       }
     } catch (error) {
