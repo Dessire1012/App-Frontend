@@ -34,9 +34,13 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (id) {
+      const domain = id.startsWith("google")
+        ? "https://app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io"
+        : ".vanguardchat.netlify.app";
+
       Cookies.set("userId", id, {
         path: "/",
-        domain: ".vanguardchat.netlify.app",
+        domain: domain,
       });
       getUserById(id)
         .then((data) => {
@@ -47,14 +51,14 @@ const Chatbot = () => {
             setPhoto(data.photo);
             Cookies.set("photo", data.photo, {
               path: "/",
-              domain: ".vanguardchat.netlify.app",
+              domain: domain,
             });
           }
           if (data.email) {
             setEmail(data.email);
             Cookies.set("email", data.email, {
               path: "/",
-              domain: ".vanguardchat.netlify.app",
+              domain: domain,
             });
           }
         })
