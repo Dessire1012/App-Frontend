@@ -25,19 +25,19 @@ const Chatbot = () => {
       setId(propGoogleId);
     } else {
       const cookieUserId = Cookies.get("userId");
-      const cookieGoogleId = Cookies.get("googleId");
 
       if (cookieUserId) {
         setId(cookieUserId);
-      } else if (cookieGoogleId) {
-        setId(cookieGoogleId);
       }
     }
   }, [location]);
 
   useEffect(() => {
     if (id) {
-      Cookies.set("userId", id);
+      Cookies.set("userId", id, {
+        path: "/",
+        domain: "vanguardchat.netlify.app",
+      });
       getUserById(id)
         .then((data) => {
           if (data.name) {
@@ -45,29 +45,17 @@ const Chatbot = () => {
           }
           if (data.photo) {
             setPhoto(data.photo);
-            Cookies.set("photo", data.photo);
+            Cookies.set("photo", data.photo, {
+              path: "/",
+              domain: "vanguardchat.netlify.app",
+            });
           }
           if (data.email) {
             setEmail(data.email);
-            Cookies.set("email", data.email);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-        });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    console.log("Photo URL:", photo);
-  }, [photo]);
-
-  useEffect(() => {
-    if (id) {
-      getUserById(id)
-        .then((data) => {
-          if (data.name) {
-            setUserName(data.name);
+            Cookies.set("email", data.email, {
+              path: "/",
+              domain: "vanguardchat.netlify.app",
+            });
           }
         })
         .catch((error) => {
