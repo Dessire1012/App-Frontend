@@ -3,6 +3,9 @@ const API_URL =
 
 export const loginUser = async (credentials) => {
   try {
+    const payload = JSON.stringify(credentials);
+    console.log("Request Payload:", payload);
+
     const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
@@ -11,8 +14,11 @@ export const loginUser = async (credentials) => {
       body: JSON.stringify(credentials),
     });
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      const errorDetails = await response.json();
+      console.error("Response Error Details:", errorDetails);
+      throw new Error(`Network response was not ok: ${errorDetails.message}`);
     }
+
     return await response.json();
   } catch (error) {
     console.error("Error logging in:", error);
