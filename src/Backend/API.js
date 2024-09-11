@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/user";
+const API_URL = "app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io/users";
 
 export const loginUser = async (credentials) => {
   try {
