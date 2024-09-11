@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { FaGoogle } from "react-icons/fa";
-import { loginUser } from "../Backend/API";
+import { loginUser, registerUser } from "../Backend/API";
 import "./Styles/GBttn.css";
 
 function GBttn() {
