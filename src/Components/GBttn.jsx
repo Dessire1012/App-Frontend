@@ -46,7 +46,7 @@ function GBttn() {
 
       let user;
       try {
-        user = await loginUser({ email, password });
+        user = await loginUser({ email, user_id });
         console.log("User logged in", user);
       } catch (loginError) {
         console.error("Login failed, attempting to register", loginError);
