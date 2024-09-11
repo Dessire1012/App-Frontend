@@ -3,9 +3,12 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { FaGoogle } from "react-icons/fa";
 import { loginUser, registerUser } from "../Backend/API";
+import { useNavigate } from "react-router-dom";
 import "./Styles/GBttn.css";
 
 function GBttn() {
+  const navigate = useNavigate();
+
   const generateRandomPassword = () => {
     const length = 12;
     const charset =
@@ -50,6 +53,7 @@ function GBttn() {
         user = await registerUser({ user_id, name, email, password, photo });
         console.log("User registered", user);
       }
+      navigate(`/chatbot/${user_id}`);
     } catch (error) {
       console.error("Operation failed", error);
     }

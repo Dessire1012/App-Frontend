@@ -1,69 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
 import "./Styles/Chatbot.css";
 import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { getUserById } from "../Backend/API";
 
-const Chatbot = () => {
+const Chatbot = ({ userId }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [id, setId] = useState(null);
   const [userName, setUserName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
-  const location = useLocation();
-  const domain = "vanguardchat.netlify.app";
 
   useEffect(() => {
-    const propUserId = location.state?.userId;
-    const propGoogleId = location.state?.googleId;
-
-    if (propUserId) {
-      setId(propUserId);
-    } else if (propGoogleId) {
-      setId(propGoogleId);
-    } else {
-      const cookieUserId = Cookies.get("userId");
-
-      if (cookieUserId) {
-        setId(cookieUserId);
-      }
-    }
-  }, [location]);
-
-  useEffect(() => {
-    if (id) {
-      Cookies.set("userId", id, {
-        path: "/",
-        domain: domain,
+    if (userId) {
+      getUserById(userId).then((user) => {
+        setUserName(user.name);
+        setPhoto(user.photo);
+        setEmail(user.email);
       });
-      getUserById(id)
-        .then((data) => {
-          if (data.name) {
-            setUserName(data.name);
-          }
-          if (data.photo) {
-            setPhoto(data.photo);
-            Cookies.set("photo", data.photo, {
-              path: "/",
-              domain: domain,
-            });
-          }
-          if (data.email) {
-            setEmail(data.email);
-            Cookies.set("email", data.email, {
-              path: "/",
-              domain: domain,
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-        });
     }
-  }, [id]);
+  }, [userId]);
 
   const handleSend = () => {
     if (input.trim()) {
