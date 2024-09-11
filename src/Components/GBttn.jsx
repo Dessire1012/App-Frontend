@@ -7,14 +7,28 @@ import "./Styles/GBttn.css";
 
 function GBttn() {
   const generateRandomPassword = () => {
-    return Math.random().toString(36).slice(-8);
+    const length = 12;
+    const charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    let password = "";
+    while (!isPassword(password)) {
+      password = Array.from(crypto.getRandomValues(new Uint8Array(length)))
+        .map((n) => charset[n % charset.length])
+        .join("");
+    }
+    return password;
+  };
+
+  const isPassword = (str) => {
+    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return re.test(str);
   };
 
   const handleSuccess = async (response) => {
     try {
       const token = response.credential;
       const decodedToken = jwtDecode(token);
-      const googleId = decodedToken.sub;
+      const googleId = parseInt(decodedToken.sub, 10);
       const name = decodedToken.name;
       const email = decodedToken.email;
       const password = generateRandomPassword();
@@ -27,7 +41,7 @@ function GBttn() {
 
       let user;
       try {
-        user = await loginUser({ googleId });
+        user = await loginUser({ email, password });
         console.log("User logged in", user);
       } catch (loginError) {
         console.error("Login failed, attempting to register", loginError);
