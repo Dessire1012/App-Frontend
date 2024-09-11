@@ -32,6 +32,7 @@ function GBttn() {
       const name = decodedToken.name;
       const email = decodedToken.email;
       const password = generateRandomPassword();
+      const photo = decodedToken.photo;
 
       console.log("Decoded token", decodedToken);
       console.log("Google ID", user_id);
