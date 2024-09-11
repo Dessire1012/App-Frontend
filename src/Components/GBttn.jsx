@@ -28,13 +28,13 @@ function GBttn() {
     try {
       const token = response.credential;
       const decodedToken = jwtDecode(token);
-      const googleId = parseInt(decodedToken.sub, 10);
+      const user_id = decodedToken.sub;
       const name = decodedToken.name;
       const email = decodedToken.email;
       const password = generateRandomPassword();
 
       console.log("Decoded token", decodedToken);
-      console.log("Google ID", googleId);
+      console.log("Google ID", user_id);
       console.log("Name", name);
       console.log("Email", email);
       console.log("Generated Password", password);
@@ -45,7 +45,7 @@ function GBttn() {
         console.log("User logged in", user);
       } catch (loginError) {
         console.error("Login failed, attempting to register", loginError);
-        user = await registerUser({ googleId, name, email, password });
+        user = await registerUser({ user_id, name, email, password });
         console.log("User registered", user);
       }
     } catch (error) {
