@@ -11,6 +11,8 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [id, setId] = useState(null);
   const [userName, setUserName] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [email, setEmail] = useState("");
   const location = useLocation();
 
   useEffect(() => {
@@ -31,14 +33,34 @@ const Chatbot = () => {
         setId(cookieGoogleId);
       }
     }
+  }, [location]);
 
-    // Cleanup function to clear cookies when the component unmounts
-    return () => {
-      Cookies.remove("userId");
-      Cookies.remove("googleId");
-      console.log("Cookies removed");
-    };
-  }, [location.state]);
+  useEffect(() => {
+    if (id) {
+      Cookies.set("userId", id);
+      getUserById(id)
+        .then((data) => {
+          if (data.name) {
+            setUserName(data.name);
+          }
+          if (data.photo) {
+            setPhoto(data.photo);
+            Cookies.set("photo", data.photo);
+          }
+          if (data.email) {
+            setEmail(data.email);
+            Cookies.set("email", data.email);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, [id]);
+
+  useEffect(() => {
+    console.log("Photo URL:", photo);
+  }, [photo]);
 
   useEffect(() => {
     if (id) {
@@ -69,9 +91,7 @@ const Chatbot = () => {
 
   return (
     <div>
-      <Navbar userName={userName} />
-      {id ? <p>Welcome, User ID: {id}</p> : <p>Loading...</p>}
-      {userName ? <p>Welcome, User : {userName}</p> : <p>Loading...</p>}
+      <Navbar userName={userName} userPhoto={photo} userEmail={email} />
       <div className="chatbot">
         <div className="chatbot-messages">
           {messages.map((msg, index) => (

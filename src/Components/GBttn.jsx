@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 
 function GBttn() {
   const handleGoogleLogin = () => {
-    window.location.href = "https://vanguardchat.netlify.app/auth/google";
+    window.location.href = "http://localhost:3001/auth/google";
   };
 
   return (
