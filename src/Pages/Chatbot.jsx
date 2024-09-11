@@ -34,10 +34,6 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (id) {
-      const domain = id.startsWith("google")
-        ? "https://app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io"
-        : ".vanguardchat.netlify.app";
-
       Cookies.set("userId", id, {
         path: "/",
         domain: domain,
