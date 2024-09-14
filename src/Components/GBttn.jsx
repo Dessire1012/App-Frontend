@@ -36,6 +36,7 @@ function GBttn() {
       const email = decodedToken.email;
       const password = generateRandomPassword();
       const photo = decodedToken.picture;
+
       Cookies.set("user_photo", photo, { expires: 7 });
 
       let user;

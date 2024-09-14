@@ -4,6 +4,7 @@ import "./Styles/Navbar.css";
 import { FaUser, FaCog, FaSignOutAlt, FaFilePdf } from "react-icons/fa";
 import Settings from "./Settings";
 import iconoChatbot from "../Imagenes/chat-bot.png";
+import Cookies from "js-cookie";
 
 const Navbar = ({ userName, userPhoto, userEmail }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -25,6 +26,11 @@ const Navbar = ({ userName, userPhoto, userEmail }) => {
   };
 
   const closeSettingsModal = () => setIsSettingsModalOpen(false);
+
+  const handleLogout = () => {
+    Cookies.remove("user_photo");
+    window.location.href = "/";
+  };
 
   return (
     <nav className="navbar">
@@ -56,9 +62,9 @@ const Navbar = ({ userName, userPhoto, userEmail }) => {
               </button>
             </li>
             <li>
-              <Link to="/" className="dropdown-button">
+              <button onClick={handleLogout} className="dropdown-button">
                 <FaSignOutAlt style={{ marginRight: "8px" }} /> Log out
-              </Link>
+              </button>
             </li>
           </ul>
         )}

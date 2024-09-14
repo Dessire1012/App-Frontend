@@ -48,25 +48,9 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
           <div className="settings-left">
             <div className="user-icon">
               {photo ? (
-                <img
-                  src={photo}
-                  alt="User"
-                  className="user-image"
-                  srcSet={`${photo} 1x, ${photo.replace(
-                    ".jpg",
-                    "@2x.jpg"
-                  )} 2x, ${photo.replace(".jpg", "@3x.jpg")} 3x`}
-                />
+                <img src={photo} alt="User" className="user-image" />
               ) : imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="User"
-                  className="user-image"
-                  srcSet={`${imagePreview} 1x, ${imagePreview.replace(
-                    ".jpg",
-                    "@2x.jpg"
-                  )} 2x, ${imagePreview.replace(".jpg", "@3x.jpg")} 3x`}
-                />
+                <img src={imagePreview} alt="User" className="user-image" />
               ) : (
                 <FaUser />
               )}
