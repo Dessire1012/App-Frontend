@@ -34,9 +34,21 @@ function FbBttn() {
       (response) => {
         if (response.authResponse) {
           console.log("Welcome! Fetching your information.... ");
-          FB.api("/me", function (response) {
-            console.log("Good to see you, " + response + ".");
-          });
+          const { accessToken, userID } = response.authResponse;
+          console.log("Access Token:", accessToken);
+          console.log("User ID:", userID);
+
+          FB.api(
+            "/me",
+            { fields: "id,name,email,picture" },
+            function (response) {
+              const { id, name, email, picture } = response;
+              console.log("User ID:", id);
+              console.log("Name:", name);
+              console.log("Email:", email);
+              console.log("Picture URL:", picture.data.url);
+            }
+          );
         } else {
           console.log("User cancelled login or did not fully authorize.");
         }
