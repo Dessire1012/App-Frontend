@@ -1,7 +1,6 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { FaGoogle } from "react-icons/fa";
 import { loginUser, registerUser } from "../Backend/API";
 import { useNavigate } from "react-router-dom";
 import "./Styles/GBttn.css";
@@ -61,16 +60,6 @@ function GBttn() {
       onSuccess={handleSuccess}
       onError={handleError}
       buttonText="Connect with Google"
-      render={(renderProps) => (
-        <button
-          className="g-button"
-          onClick={renderProps.onClick}
-          disabled={renderProps.disabled}
-        >
-          <FaGoogle className="g-icon" />
-          Connect with Google
-        </button>
-      )}
     />
   );
 }
