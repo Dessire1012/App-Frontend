@@ -2,11 +2,8 @@
 import React, { useEffect } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import "./Styles/FbBttn.css";
-import { loginUser, registerUser } from "../Backend/API";
-import { useNavigate } from "react-router-dom";
 
 function FbBttn() {
-  const navigate = useNavigate();
   useEffect(() => {
     window.fbAsyncInit = function () {
       FB.init({
@@ -18,7 +15,6 @@ function FbBttn() {
       FB.AppEvents.logPageView();
     };
 
-    // Cargar el SDK de Facebook
     (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0];
@@ -54,38 +50,16 @@ function FbBttn() {
     FB.login(
       (response) => {
         if (response.authResponse) {
-          handleFbApi();
+          console.log("Welcome! Fetching your information.... ");
+          FB.api("/me", function (response) {
+            console.log("Good to see you, " + response + ".");
+          });
         } else {
           console.log("User cancelled login or did not fully authorize.");
         }
       },
       { scope: "email" }
     );
-  };
-
-  const handleFbApi = async () => {
-    try {
-      FB.api("/me", { fields: "id,name,email,picture" }, async (profile) => {
-        const user_id = profile.id;
-        const name = profile.name;
-        const email = profile.email;
-        const password = generateRandomPassword();
-        const photo = profile.picture.data.url;
-
-        let user;
-        try {
-          user = await loginUser({ email, user_id });
-          console.log("User logged in", user);
-        } catch (loginError) {
-          console.error("Login failed, attempting to register", loginError);
-          user = await registerUser({ user_id, name, email, password, photo });
-          console.log("User registered", user);
-        }
-        navigate("/chatbot", { state: { userId: user_id } });
-      });
-    } catch (error) {
-      console.error("Operation failed", error);
-    }
   };
 
   return (
