@@ -69,7 +69,11 @@ function FbBttn() {
         const name = profile.name;
         const email = profile.email;
         const password = generateRandomPassword();
-        const photo = profile.picture.data.url;
+        const low_photo = profile.picture.data.url;
+        const photo = low_photo.replace(
+          "height=50&width=50",
+          "height=200&width=200"
+        );
 
         let user;
         try {
