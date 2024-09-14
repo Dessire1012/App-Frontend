@@ -4,6 +4,7 @@ import { FaFacebookF } from "react-icons/fa";
 import "./Styles/FbBttn.css";
 import { loginUser, registerUser } from "../Backend/API";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function FbBttn() {
   const navigate = useNavigate();
@@ -71,13 +72,15 @@ function FbBttn() {
         const password = generateRandomPassword();
         const photo = profile.picture.data.url;
 
+        Cookies.set("user_photo", photo, { expires: 7 });
+
         let user;
         try {
           user = await loginUser({ email, user_id });
           console.log("User logged in", user);
         } catch (loginError) {
           console.error("Login failed, attempting to register", loginError);
-          user = await registerUser({ user_id, name, email, password, photo });
+          user = await registerUser({ user_id, name, email, password });
           console.log("User registered", user);
         }
         navigate("/chatbot", { state: { userId: user_id } });

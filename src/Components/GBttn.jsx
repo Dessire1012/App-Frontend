@@ -3,6 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { loginUser, registerUser } from "../Backend/API";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./Styles/GBttn.css";
 
 function GBttn() {
@@ -35,6 +36,7 @@ function GBttn() {
       const email = decodedToken.email;
       const password = generateRandomPassword();
       const photo = decodedToken.picture;
+      Cookies.set("user_photo", photo, { expires: 7 });
 
       let user;
       try {
@@ -42,7 +44,7 @@ function GBttn() {
         console.log("User logged in", user);
       } catch (loginError) {
         console.error("Login failed, attempting to register", loginError);
-        user = await registerUser({ user_id, name, email, password, photo });
+        user = await registerUser({ user_id, name, email, password });
         console.log("User registered", user);
       }
       navigate("/chatbot", { state: { userId: user_id } });

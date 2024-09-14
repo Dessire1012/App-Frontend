@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "./Styles/Chatbot.css";
+import Cookies from "js-cookie";
 import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { getUserById } from "../Backend/API";
+import "./Styles/Chatbot.css";
 
 const Chatbot = () => {
   const location = useLocation();
@@ -14,15 +15,17 @@ const Chatbot = () => {
   const [userName, setUserName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
-  console.log(userId);
 
   useEffect(() => {
     if (userId) {
       getUserById(userId).then((user) => {
         setUserName(user.name);
-        setPhoto(user.photo);
         setEmail(user.email);
       });
+    }
+    const userPhoto = Cookies.get("user_photo");
+    if (userPhoto) {
+      setPhoto(userPhoto);
     }
   }, [userId]);
 
