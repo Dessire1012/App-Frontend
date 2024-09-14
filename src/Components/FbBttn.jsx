@@ -2,8 +2,11 @@
 import React, { useEffect } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import "./Styles/FbBttn.css";
+import { loginUser, registerUser } from "../Backend/API";
+import { useNavigate } from "react-router-dom";
 
 function FbBttn() {
+  const navigate = useNavigate();
   useEffect(() => {
     window.fbAsyncInit = function () {
       FB.init({
@@ -29,14 +32,63 @@ function FbBttn() {
     })(document, "script", "facebook-jssdk");
   }, []);
 
+  const generateRandomPassword = () => {
+    const length = 12;
+    const charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    let password = "";
+    while (!isPassword(password)) {
+      password = Array.from(crypto.getRandomValues(new Uint8Array(length)))
+        .map((n) => charset[n % charset.length])
+        .join("");
+    }
+    return password;
+  };
+
+  const isPassword = (str) => {
+    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return re.test(str);
+  };
+
   const handleFbLogin = () => {
     FB.login(
-      (response) => {
+      async (response) => {
         if (response.authResponse) {
-          console.log("Welcome! Fetching your information.... ");
-          FB.api("/me", function (response) {
-            console.log("Good to see you, " + response.name + ".");
-          });
+          try {
+            FB.api(
+              "/me",
+              { fields: "id,name,email,picture" },
+              async (profile) => {
+                const user_id = profile.id;
+                const name = profile.name;
+                const email = profile.email;
+                const password = generateRandomPassword();
+                const photo = profile.picture.data.url;
+
+                let user;
+                try {
+                  user = await loginUser({ email, user_id });
+                  console.log("User logged in", user);
+                } catch (loginError) {
+                  console.error(
+                    "Login failed, attempting to register",
+                    loginError
+                  );
+                  user = await registerUser({
+                    user_id,
+                    name,
+                    email,
+                    password,
+                    photo,
+                  });
+                  console.log("User registered", user);
+                }
+                navigate("/chatbot", { state: { userId: user_id } });
+              }
+            );
+          } catch (error) {
+            console.error("Operation failed", error);
+          }
         } else {
           console.log("User cancelled login or did not fully authorize.");
         }
