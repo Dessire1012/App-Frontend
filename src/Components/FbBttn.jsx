@@ -15,6 +15,7 @@ function FbBttn() {
       FB.AppEvents.logPageView();
     };
 
+    // Cargar el SDK de Facebook
     (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0];
@@ -27,24 +28,6 @@ function FbBttn() {
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
   }, []);
-
-  const generateRandomPassword = () => {
-    const length = 12;
-    const charset =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    let password = "";
-    while (!isPassword(password)) {
-      password = Array.from(crypto.getRandomValues(new Uint8Array(length)))
-        .map((n) => charset[n % charset.length])
-        .join("");
-    }
-    return password;
-  };
-
-  const isPassword = (str) => {
-    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    return re.test(str);
-  };
 
   const handleFbLogin = () => {
     FB.login(
