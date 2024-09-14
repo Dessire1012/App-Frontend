@@ -37,13 +37,6 @@ function GBttn() {
       const password = generateRandomPassword();
       const photo = decodedToken.picture;
 
-      console.log("Decoded token", decodedToken);
-      console.log("Google ID", user_id);
-      console.log("Name", name);
-      console.log("Email", email);
-      console.log("Generated Password", password);
-      console.log("Photo URL", photo);
-
       let user;
       try {
         user = await loginUser({ email, user_id });
