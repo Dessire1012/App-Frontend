@@ -67,7 +67,7 @@ export const sentimentAnalysis = async (text) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(text),
+      body: JSON.stringify({ body: text }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
