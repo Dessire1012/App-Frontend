@@ -206,3 +206,9 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+@media (max-width: 600px) {
+  .input-container {
+    max-width: 90%;
+  }
+}

@@ -157,3 +157,12 @@
   margin-right: 0.5em;
   vertical-align: middle;
 }
+
+@media (max-width: 600px) {
+  .navbar-title {
+    font-size: 1.2rem;
+  }
+  .navbar-user .welcome {
+    font-size: 0.8em;
+  }
+}
