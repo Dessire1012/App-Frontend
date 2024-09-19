@@ -46,7 +46,7 @@
   color: #fff;
 }
 
-.modal {
+.modal-silabo {
   position: fixed;
   top: 0;
   left: 0;
@@ -59,15 +59,19 @@
   z-index: 1000;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.modal-content-s {
+  background: #fefefe;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 80%;
   max-width: 90%;
   max-height: 90%;
   overflow: auto;
   position: relative;
+  margin: auto;
+  border: 1px solid #888;
+  text-align: center;
 }
 
 .close {
@@ -167,7 +171,7 @@
     font-size: 1.2rem;
   }
   .navbar-user {
-    font-size: 0.8em;
+    font-size: 1em;
   }
   .welcome::after {
     content: "Welcome,";

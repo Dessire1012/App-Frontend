@@ -39,8 +39,8 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="modal-settings">
+      <div className="modal-content-sett">
         <span className="close" onClick={onClose}>
           &times;
         </span>

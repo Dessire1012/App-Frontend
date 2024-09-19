@@ -1,10 +1,27 @@
-.modal-content {
-  width: 600px;
-  padding: 30px;
-  background-color: #fff;
-  margin: auto;
+.modal-settings {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content-sett {
+  background: #fefefe;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 60%;
+  overflow: auto;
+  position: relative;
+  margin: auto;
+  border: 1px solid #888;
+  text-align: center;
 }
 
 .user-icon {
@@ -145,4 +162,37 @@ input:focus {
 .done-button:hover {
   background-color: #343a40;
   transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+  .modal-content-sett {
+    width: 90%;
+  }
+
+  .settings-container {
+    flex-direction: column;
+  }
+
+  .settings-right {
+    margin-left: 0;
+  }
+
+  .right-buttons {
+    align-items: center;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .user-icon {
+    font-size: 120px;
+    margin-bottom: 0%;
+  }
+
+  .upload-image {
+    font-size: 14px;
+    margin-top: 0%;
+    margin-bottom: 2%;
+  }
 }

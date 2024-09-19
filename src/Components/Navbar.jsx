@@ -70,8 +70,8 @@ const Navbar = ({ userName, userPhoto, userEmail }) => {
         )}
       </div>
       {isSilaboModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal-silabo">
+          <div className="modal-content-s">
             <span className="close" onClick={closeSilaboModal}>
               &times;
             </span>
