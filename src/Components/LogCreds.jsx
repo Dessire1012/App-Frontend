@@ -1,5 +1,6 @@
 import React from "react";
 import "./Styles/LogCreds.css";
+import FaceId from "../Imagenes/face-id.png";
 
 function LogCreds({
   email,
@@ -44,8 +45,15 @@ function LogCreds({
       <button type="submit" className="button">
         Log in
       </button>
-
-      <a href="faceID">Use Face ID to Log In</a>
+      <div align="center">
+        <button type="button" className="faceid-button">
+          <img
+            src={FaceId}
+            alt="Face ID"
+            style={{ width: "60px", height: "60px" }}
+          />
+        </button>
+      </div>
     </form>
   );
 }
