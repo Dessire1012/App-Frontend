@@ -184,6 +184,8 @@
   border-top: 0.25em solid #3498db;
   border-radius: 50%;
   animation: spin 0.75s linear infinite;
+  margin: 20px auto;
+  display: block;
 }
 
 @keyframes spin {

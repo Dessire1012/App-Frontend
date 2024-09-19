@@ -53,6 +53,9 @@ const Chatbot = () => {
   };
 
   const toggleModal = async () => {
+    setIsModalOpen(!isModalOpen);
+    setIsDropdownOpen(false);
+
     if (!isModalOpen) {
       setIsLoading(true);
       try {
@@ -63,17 +66,13 @@ const Chatbot = () => {
         console.log(userMessages);
         const response = await sentimentAnalysis({ text: userMessages });
         setSentimentResult(response.body);
-        setIsModalOpen(true);
         console.log(response);
       } catch (error) {
         console.error("Error al analizar el sentimiento:", error);
       } finally {
         setIsLoading(false);
       }
-    } else {
-      setIsModalOpen(false);
     }
-    setIsDropdownOpen(false);
   };
 
   return (
@@ -122,15 +121,13 @@ const Chatbot = () => {
                   <span className="close-button" onClick={toggleModal}>
                     &times;
                   </span>
+                  <h2>The overall sentiment is:</h2>
                   {isLoading ? (
                     <div className="spinner-border" role="status">
                       <span className="sr-only">Loading...</span>
                     </div>
                   ) : (
-                    <>
-                      <p>Analyze Sentiment</p>
-                      <p>{sentimentResult}</p>
-                    </>
+                    <p>{sentimentResult}</p>
                   )}
                 </div>
               </div>
