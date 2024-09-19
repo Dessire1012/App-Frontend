@@ -5,12 +5,16 @@ import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { getUserById } from "../Backend/API";
 import "./Styles/Chatbot.css";
+import { sentimentAnalysis } from "../Backend/API";
 
 const Chatbot = () => {
   const location = useLocation();
   const { userId } = location.state || {};
 
   const [messages, setMessages] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [input, setInput] = useState("");
   const [userName, setUserName] = useState("");
   const [photo, setPhoto] = useState("");
@@ -42,6 +46,29 @@ const Chatbot = () => {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleModal = async () => {
+    setIsModalOpen(!isModalOpen);
+    setIsDropdownOpen(false);
+
+    if (!isModalOpen) {
+      try {
+        const userMessages = messages
+          .filter((msg) => msg.user)
+          .map((msg) => (msg.text.endsWith(".") ? msg.text : `${msg.text}.`))
+          .join(" ");
+        console.log(userMessages);
+        const response = await sentimentAnalysis({ text: userMessages });
+        console.log(response);
+      } catch (error) {
+        console.error("Error al analizar el sentimiento:", error);
+      }
+    }
+  };
+
   return (
     <div>
       <Navbar userName={userName} userPhoto={photo} userEmail={email} />
@@ -69,7 +96,29 @@ const Chatbot = () => {
               className="input-field"
             />
             <FaPaperPlane className="icon send-icon" onClick={handleSend} />
-            <FaEllipsisV className="icon options-icon" />
+            <div className="dropdown-container">
+              <FaEllipsisV
+                className="icon options-icon"
+                onClick={toggleDropdown}
+              />
+              {isDropdownOpen && (
+                <div className="dropdown-sentiment">
+                  <button className="item-sentiment" onClick={toggleModal}>
+                    Analyze Sentiment
+                  </button>
+                </div>
+              )}
+            </div>
+            {isModalOpen && (
+              <div className="modal">
+                <div className="modal-content">
+                  <span className="close-button" onClick={toggleModal}>
+                    &times;
+                  </span>
+                  <p>Analyze Sentiment</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

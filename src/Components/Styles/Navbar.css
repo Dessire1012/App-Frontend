@@ -111,10 +111,6 @@
 }
 
 .dropdown-menu li {
-  padding: 0;
-}
-
-.dropdown-menu li {
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;

@@ -59,3 +59,22 @@ export const getUserById = async (id) => {
     throw error;
   }
 };
+
+export const sentimentAnalysis = async (text) => {
+  try {
+    const response = await fetch(`${API_URL}/aws-function`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(text),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error analyzing the sentiment:", error);
+    throw error;
+  }
+};
