@@ -1,12 +1,12 @@
 const API_URL =
-  "https://app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io/user";
+  "https://app-ffb84f79-a617-43e4-b3ef-d4e15dbc138f.cleverapps.io";
 
 export const loginUser = async (credentials) => {
   try {
     const payload = JSON.stringify(credentials);
     console.log("Request Payload:", payload);
 
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(`${API_URL}/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const loginUser = async (credentials) => {
 
 export const registerUser = async (userData) => {
   try {
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch(`${API_URL}/user/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const registerUser = async (userData) => {
 
 export const getUserById = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/viewUser?id=${id}`, {
+    const response = await fetch(`${API_URL}/user/viewUser?id=${id}`, {
       method: "GET",
     });
     if (!response.ok) {
