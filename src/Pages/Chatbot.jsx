@@ -14,6 +14,8 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [sentimentResult, setSentimentResult] = useState("");
 
   const [input, setInput] = useState("");
   const [userName, setUserName] = useState("");
@@ -51,10 +53,8 @@ const Chatbot = () => {
   };
 
   const toggleModal = async () => {
-    setIsModalOpen(!isModalOpen);
-    setIsDropdownOpen(false);
-
     if (!isModalOpen) {
+      setIsLoading(true);
       try {
         const userMessages = messages
           .filter((msg) => msg.user)
@@ -62,11 +62,18 @@ const Chatbot = () => {
           .join(" ");
         console.log(userMessages);
         const response = await sentimentAnalysis({ text: userMessages });
+        setSentimentResult(response.body);
+        setIsModalOpen(true);
         console.log(response);
       } catch (error) {
         console.error("Error al analizar el sentimiento:", error);
+      } finally {
+        setIsLoading(false);
       }
+    } else {
+      setIsModalOpen(false);
     }
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -115,7 +122,16 @@ const Chatbot = () => {
                   <span className="close-button" onClick={toggleModal}>
                     &times;
                   </span>
-                  <p>Analyze Sentiment</p>
+                  {isLoading ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <p>Analyze Sentiment</p>
+                      <p>{sentimentResult}</p>
+                    </>
+                  )}
                 </div>
               </div>
             )}
