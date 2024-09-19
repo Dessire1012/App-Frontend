@@ -158,11 +158,18 @@
   vertical-align: middle;
 }
 
+.welcome::after {
+  content: "Welcome back,";
+}
+
 @media (max-width: 600px) {
   .navbar-title {
     font-size: 1.2rem;
   }
-  .navbar-user .welcome {
+  .navbar-user {
     font-size: 0.8em;
+  }
+  .welcome::after {
+    content: "Welcome,";
   }
 }

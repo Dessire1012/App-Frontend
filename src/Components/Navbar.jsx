@@ -39,7 +39,7 @@ const Navbar = ({ userName, userPhoto, userEmail }) => {
         Chatbot Vanguard
       </Link>
       <div className="navbar-user">
-        <h4 className="welcome">Welcome back,</h4>
+        <h4 className="welcome"></h4>
         {userName && <span className="user-name">{userName}</span>}
         <button onClick={toggleDropdown} className="user-button">
           {userPhoto ? (
