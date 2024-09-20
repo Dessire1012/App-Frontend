@@ -21,7 +21,7 @@ function FbBttn() {
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       js.onload = () => {
         FB.init({
-          appId: "833630222214619",
+          appId: "1084301713253316",
           cookie: true,
           xfbml: true,
           version: "v20.0",
