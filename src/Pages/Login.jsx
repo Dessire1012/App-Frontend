@@ -33,7 +33,7 @@ function Login() {
         <img src={Cielo} alt="" />
         <div className="overlay-container">
           <div className="login-title">
-            <h1>Log In</h1>
+            <h1>Log In - Prueba Steve</h1>
           </div>
           <div className="sub-title">
             <h1>Welcome Back!</h1>
