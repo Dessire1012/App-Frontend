@@ -89,6 +89,9 @@ const FaceIdLogin = () => {
       try {
         const response = await loginUser({ email });
         let storedVector = response.vector;
+
+        storedVector = JSON.parse(storedVector);
+
         console.log(storedVector);
 
         if (!(storedVector instanceof Float32Array)) {
