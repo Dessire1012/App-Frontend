@@ -88,7 +88,7 @@ export const invokeAgent = async (prompt) => {
       },
       body: JSON.stringify({
         agentId: "BGELUFMFO8",
-        agentAliasId: "4W3EKJWXTC",
+        agentAliasId: "ZCUEMV8LBZ",
         sessionId: 10,
         prompt: prompt,
       }),
