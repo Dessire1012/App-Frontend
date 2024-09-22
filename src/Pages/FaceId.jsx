@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
+import { useNavigate } from "react-router-dom";
 import "./Styles/FaceId.css";
+import { loginUser, registerUser } from "../Backend/API";
 
 const FaceIdLogin = () => {
   const videoRef = useRef();
+  const navigate = useNavigate();
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [registeredImageDescriptor, setRegisteredImageDescriptor] =
@@ -12,7 +15,7 @@ const FaceIdLogin = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState(""); // State for message
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const loadModels = async () => {
@@ -53,11 +56,24 @@ const FaceIdLogin = () => {
       .withFaceDescriptor();
 
     if (detection) {
-      setRegisteredImageDescriptor(detection.descriptor);
-      setIsRegistered(true);
-      setMessage("Registration completed.");
+      try {
+        await registerUser({
+          name,
+          email,
+          faceDescriptor: JSON.stringify(detection.descriptor),
+        });
 
-      video.srcObject.getTracks().forEach((track) => track.stop());
+        setRegisteredImageDescriptor(detection.descriptor);
+        setIsRegistered(true);
+        setMessage("Registration completed.");
+
+        video.srcObject.getTracks().forEach((track) => track.stop());
+
+        setShowRegister(false);
+        setShowLogin(true);
+      } catch (error) {
+        setMessage("Registration failed, please try again.");
+      }
     } else {
       setMessage("No face detected, please try again.");
     }
@@ -81,11 +97,20 @@ const FaceIdLogin = () => {
       const faceMatcher = new faceapi.FaceMatcher([registeredImageDescriptor]);
       const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
 
-      console.log(bestMatch);
-
       if (bestMatch.label === "person 1") {
-        setMessage("Authentication successful.");
-        video.srcObject.getTracks().forEach((track) => track.stop());
+        try {
+          await loginUser({
+            email,
+            faceDescriptor: JSON.stringify(detection.descriptor),
+          });
+
+          setMessage("Authentication successful.");
+          video.srcObject.getTracks().forEach((track) => track.stop());
+
+          navigate("/chatbot");
+        } catch (error) {
+          setMessage("Login failed, please try again.");
+        }
       } else {
         setMessage("Authentication failed.");
       }

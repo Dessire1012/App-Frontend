@@ -1,26 +1,11 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .container-face {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  background-color: #f0f0f0;
   padding: 20px;
+  margin-top: 50px;
 }
 
 .title-face {
@@ -90,7 +75,7 @@ body {
 }
 
 .button-enter:hover {
-  background-color: #500465;
+  background-color: #0056b3;
 }
 
 .register-form-face,
