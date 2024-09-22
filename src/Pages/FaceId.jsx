@@ -95,6 +95,10 @@ const FaceIdLogin = () => {
           storedVector = new Float32Array(storedVector);
         }
 
+        console.log("Stored vector length:", storedVector.length);
+        console.log("Detected vector length:", detection.descriptor.length);
+        console.log("Detected vector:", detection.descriptor);
+
         const faceMatcher = new faceapi.FaceMatcher([storedVector]);
         const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
 
