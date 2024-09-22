@@ -88,9 +88,6 @@ const FaceIdLogin = () => {
     if (detection) {
       try {
         const response = await loginUser({ email });
-        console.log(response);
-        console.log(response.vector);
-
         const storedVector = response.vector;
         console.log(storedVector);
 
@@ -105,6 +102,7 @@ const FaceIdLogin = () => {
           setMessage("Authentication failed.");
         }
       } catch (error) {
+        console.error("Error during authentication:", error);
         setMessage("Login failed, please try again.");
       }
     } else {
