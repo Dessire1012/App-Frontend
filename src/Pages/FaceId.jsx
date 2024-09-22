@@ -10,7 +10,9 @@ const FaceIdLogin = () => {
     useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [isCameraActive, setIsCameraActive] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState(""); // State for message
 
   useEffect(() => {
     const loadModels = async () => {
@@ -32,7 +34,6 @@ const FaceIdLogin = () => {
       .getUserMedia({ video: {} })
       .then((stream) => {
         videoRef.current.srcObject = stream;
-        setIsCameraActive(true);
       })
       .catch((error) => {
         console.error("Error accessing camera:", error);
@@ -40,7 +41,10 @@ const FaceIdLogin = () => {
   };
 
   const handleRegister = async () => {
-    if (!isModelLoaded) return alert("Modelos no cargados");
+    if (!name || !email) {
+      return setMessage("Please complete all fields.");
+    }
+    if (!isModelLoaded) return setMessage("Models not loaded.");
 
     const video = videoRef.current;
     const detection = await faceapi
@@ -51,17 +55,21 @@ const FaceIdLogin = () => {
     if (detection) {
       setRegisteredImageDescriptor(detection.descriptor);
       setIsRegistered(true);
-      alert("Registro completado");
+      setMessage("Registration completed.");
 
       video.srcObject.getTracks().forEach((track) => track.stop());
     } else {
-      alert("No se detectó una cara, intenta de nuevo");
+      setMessage("No face detected, please try again.");
     }
   };
 
   const handleLogin = async () => {
-    if (!isModelLoaded || !isRegistered)
-      return alert("No puedes iniciar sesión sin registrarte primero.");
+    if (!email) {
+      return setMessage("Please enter your email.");
+    }
+    if (!isModelLoaded || !isRegistered) {
+      return setMessage("You must register before logging in.");
+    }
 
     const video = videoRef.current;
     const detection = await faceapi
@@ -76,20 +84,19 @@ const FaceIdLogin = () => {
       console.log(bestMatch);
 
       if (bestMatch.label === "person 1") {
-        alert("Autenticación exitosa");
-
+        setMessage("Authentication successful.");
         video.srcObject.getTracks().forEach((track) => track.stop());
       } else {
-        alert("Autenticación fallida");
+        setMessage("Authentication failed.");
       }
     } else {
-      alert("No se detectó ninguna cara para autenticar");
+      setMessage("No face detected for authentication.");
     }
   };
 
   return (
     <div className="container-face">
-      <h2 className="title-face">Iniciar sesión con reconocimiento facial</h2>
+      <h2 className="title-face">Login with Face Recognition</h2>
 
       <div className="video-container-face">
         <video ref={videoRef} className="video-face" autoPlay muted></video>
@@ -98,42 +105,72 @@ const FaceIdLogin = () => {
       <div className="controls-face">
         {!showRegister && !showLogin && (
           <div className="initial-buttons-face">
-            <h3>Primera vez aquí?</h3>
-            <button
-              onClick={() => setShowRegister(true)}
-              className="button-face"
-            >
-              Registrar
-            </button>
-            <h3>Ya tienes una cuenta?</h3>
-            <button onClick={() => setShowLogin(true)} className="button-face">
-              Sign In
-            </button>
+            <div className="action-section">
+              <h3>Register if you are new</h3>
+              <button
+                onClick={() => setShowRegister(true)}
+                className="button-face"
+              >
+                Register
+              </button>
+            </div>
+            <div className="action-section">
+              <h3>Sign in if you are back</h3>
+              <button
+                onClick={() => setShowLogin(true)}
+                className="button-face"
+              >
+                Sign In
+              </button>
+            </div>
           </div>
         )}
 
         {showRegister && (
           <div className="register-form-face">
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input-face"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-face"
+            />
             <button onClick={startVideo} className="button-face">
-              Iniciar Cámara
+              Start Camera
             </button>
-            <button onClick={handleRegister} className="button-face">
-              Registrar mi cara
+            <button onClick={handleRegister} className="button-enter">
+              Register Face
             </button>
           </div>
         )}
 
         {showLogin && (
           <div className="login-form-face">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-face"
+            />
             <button onClick={startVideo} className="button-face">
-              Iniciar Cámara
+              Start Camera
             </button>
-            <button onClick={handleLogin} className="button-face">
-              Iniciar sesión
+            <button onClick={handleLogin} className="button-enter">
+              Sign In
             </button>
           </div>
         )}
       </div>
+
+      {message && <p className="message-face">{message}</p>}
     </div>
   );
 };
