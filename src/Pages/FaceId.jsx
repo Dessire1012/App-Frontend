@@ -90,7 +90,15 @@ const FaceIdLogin = () => {
         const response = await loginUser({ email });
         let storedVector = response.vector;
 
-        storedVector = JSON.parse(storedVector);
+        if (typeof storedVector === "string") {
+          try {
+            storedVector = JSON.parse(storedVector);
+          } catch (error) {
+            console.error("Error parsing stored vector:", error);
+            setMessage("Error parsing stored vector.");
+            return;
+          }
+        }
 
         console.log(storedVector);
 
