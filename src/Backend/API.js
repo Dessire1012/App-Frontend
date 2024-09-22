@@ -78,3 +78,27 @@ export const sentimentAnalysis = async (text) => {
     throw error;
   }
 };
+
+export const invokeAgent = async (prompt) => {
+  try {
+    const response = await fetch(`${API_URL}/agent/invoke-agent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        agentId: "BGELUFMFO8",
+        agentAliasId: "4W3EKJWXTC",
+        sessionId: 10,
+        prompt: prompt,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error trying to reach agent:", error);
+    throw error;
+  }
+};

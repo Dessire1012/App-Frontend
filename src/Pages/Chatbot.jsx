@@ -5,7 +5,7 @@ import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { getUserById } from "../Backend/API";
 import "./Styles/Chatbot.css";
-import { sentimentAnalysis } from "../Backend/API";
+import { sentimentAnalysis, invokeAgent } from "../Backend/API";
 
 const Chatbot = () => {
   const location = useLocation();
@@ -35,14 +35,15 @@ const Chatbot = () => {
     }
   }, [userId]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim()) {
       setMessages([...messages, { text: input, user: true }]);
       setInput("");
+      const response = await invokeAgent(input);
       setTimeout(() => {
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: "Bot response", user: false },
+          { text: response.outputText, user: false },
         ]);
       }, 1000);
     }
