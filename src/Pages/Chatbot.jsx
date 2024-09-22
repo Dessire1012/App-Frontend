@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
+import { FaPaperPlane, FaEllipsisV, FaFont } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { getUserById } from "../Backend/API";
 import "./Styles/Chatbot.css";
@@ -21,6 +21,24 @@ const Chatbot = () => {
   const [userName, setUserName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
+
+  const [chatFont, setChatFont] = useState("Arial");
+  const [showFontList, setShowFontList] = useState(false);
+
+  // Lista de fuentes para alternar
+  const fonts = ["Arial", "Courier New", "Georgia", "Times New Roman", "Verdana", "Comic Sans MS", "Algerian", "Impact", "Lucida Console", "Tahoma", "Trebuchet MS", 
+    "Palatino Linotype", "Segoe UI", "Gill Sans", "Garamond", "Franklin Gothic Medium", "Helvetica", "Calibri", "Futura", "Baskerville"];
+
+  // Función para seleccionar una fuente de la lista
+  const handleFontSelect = (font) => {
+    setChatFont(font); // Cambia la fuente
+    setShowFontList(false); // Oculta la lista de fuentes
+  };
+
+  // Función para alternar la visibilidad de la lista de fuentes
+  const toggleFontList = () => {
+    setShowFontList(!showFontList);
+  };
 
   useEffect(() => {
     if (userId) {
@@ -91,6 +109,7 @@ const Chatbot = () => {
             <div
               key={index}
               className={`message-container ${msg.user ? "user" : "bot"}`}
+              style={{ fontFamily: chatFont }}
             >
               <div className={`message ${msg.user ? "user" : "bot"}`}>
                 {msg.text}
@@ -100,7 +119,19 @@ const Chatbot = () => {
         </div>
         <div className="chatbot-input">
           <div className="input-container">
-            <span className="text-icon">T</span>
+            <FaFont className="font-icon" onClick={toggleFontList}/>
+              {showFontList && (
+                <ul className="font-list">
+                  {fonts.map((font, index) => (
+                    <li 
+                      key={index}
+                      onClick={() => handleFontSelect(font)}
+                      style={{ fontFamily: font, cursor: 'pointer' }}>
+                      {font}
+                    </li>
+                  ))}
+                </ul>
+              )}
             <input
               type="text"
               value={input}
