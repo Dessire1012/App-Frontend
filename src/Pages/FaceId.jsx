@@ -60,7 +60,7 @@ const FaceIdLogin = () => {
         await registerUser({
           name,
           email,
-          faceDescriptor: JSON.stringify(detection.descriptor),
+          vector: detection.descriptor,
         });
 
         setRegisteredImageDescriptor(detection.descriptor);
@@ -83,8 +83,8 @@ const FaceIdLogin = () => {
     if (!email) {
       return setMessage("Please enter your email.");
     }
-    if (!isModelLoaded || !isRegistered) {
-      return setMessage("You must register before logging in.");
+    if (!isModelLoaded) {
+      return setMessage("Models not loaded.");
     }
 
     const video = videoRef.current;
@@ -94,25 +94,22 @@ const FaceIdLogin = () => {
       .withFaceDescriptor();
 
     if (detection) {
-      const faceMatcher = new faceapi.FaceMatcher([registeredImageDescriptor]);
-      const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+      try {
+        const response = await loginUser({
+          email,
+          vector: detection.descriptor,
+        });
 
-      if (bestMatch.label === "person 1") {
-        try {
-          await loginUser({
-            email,
-            faceDescriptor: JSON.stringify(detection.descriptor),
-          });
-
+        if (response.success) {
           setMessage("Authentication successful.");
           video.srcObject.getTracks().forEach((track) => track.stop());
 
           navigate("/chatbot");
-        } catch (error) {
-          setMessage("Login failed, please try again.");
+        } else {
+          setMessage("Authentication failed.");
         }
-      } else {
-        setMessage("Authentication failed.");
+      } catch (error) {
+        setMessage("Login failed, please try again.");
       }
     } else {
       setMessage("No face detected for authentication.");
