@@ -100,6 +100,14 @@ const FaceIdLogin = () => {
           }
         }
 
+        if (
+          storedVector &&
+          typeof storedVector === "object" &&
+          !Array.isArray(storedVector)
+        ) {
+          storedVector = Object.values(storedVector);
+        }
+
         console.log(storedVector);
 
         if (!(storedVector instanceof Float32Array)) {
