@@ -88,6 +88,8 @@ const FaceIdLogin = () => {
     if (detection) {
       try {
         const response = await loginUser({ email });
+        console.log(response);
+        console.log(response.vector);
 
         if (response.success) {
           const storedVector = response.vector;
