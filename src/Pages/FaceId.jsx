@@ -8,9 +8,6 @@ const FaceIdLogin = () => {
   const videoRef = useRef();
   const navigate = useNavigate();
   const [isModelLoaded, setIsModelLoaded] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [registeredImageDescriptor, setRegisteredImageDescriptor] =
-    useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [name, setName] = useState("");
@@ -62,13 +59,8 @@ const FaceIdLogin = () => {
           email,
           vector: detection.descriptor,
         });
-
-        setRegisteredImageDescriptor(detection.descriptor);
-        setIsRegistered(true);
         setMessage("Registration completed.");
-
         video.srcObject.getTracks().forEach((track) => track.stop());
-
         setShowRegister(false);
         setShowLogin(true);
       } catch (error) {
@@ -95,18 +87,23 @@ const FaceIdLogin = () => {
 
     if (detection) {
       try {
-        const response = await loginUser({
-          email,
-          vector: detection.descriptor,
-        });
+        const response = await loginUser({ email });
 
         if (response.success) {
-          setMessage("Authentication successful.");
-          video.srcObject.getTracks().forEach((track) => track.stop());
+          const storedVector = response.vector;
 
-          navigate("/chatbot");
+          const faceMatcher = new faceapi.FaceMatcher([storedVector]);
+          const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+
+          if (bestMatch.label === "person 1") {
+            setMessage("Authentication successful.");
+            video.srcObject.getTracks().forEach((track) => track.stop());
+            navigate("/chatbot");
+          } else {
+            setMessage("Authentication failed.");
+          }
         } else {
-          setMessage("Authentication failed.");
+          setMessage("Login error.");
         }
       } catch (error) {
         setMessage("Login failed, please try again.");
