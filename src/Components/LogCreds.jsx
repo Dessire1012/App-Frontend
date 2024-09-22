@@ -1,6 +1,7 @@
 import React from "react";
 import "./Styles/LogCreds.css";
 import FaceId from "../Imagenes/face-id.png";
+import { useNavigate } from "react-router-dom";
 
 function LogCreds({
   email,
@@ -10,6 +11,12 @@ function LogCreds({
   onSubmit,
   errorMessage,
 }) {
+  const navigate = useNavigate();
+
+  const handleRedirect = () => {
+    navigate("/faceid");
+  };
+
   return (
     <form onSubmit={onSubmit} className="form">
       <div className="group">
@@ -46,7 +53,11 @@ function LogCreds({
         Log in
       </button>
       <div align="center">
-        <button type="button" className="faceid-button">
+        <button
+          type="button"
+          className="faceid-button"
+          onClick={handleRedirect}
+        >
           <img
             src={FaceId}
             alt="Face ID"

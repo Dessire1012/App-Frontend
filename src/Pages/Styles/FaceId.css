@@ -1,0 +1,78 @@
+.container-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.title-face {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.video-container-face {
+  width: 320px;
+  height: 240px;
+  border: 2px solid #ccc;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.video-face {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.controls-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.initial-buttons-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.button-face {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.button-face:hover {
+  background-color: #0056b3;
+}
+
+.register-form-face,
+.login-form-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.register-form-face input,
+.login-form-face input {
+  padding: 8px;
+  width: 250px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
