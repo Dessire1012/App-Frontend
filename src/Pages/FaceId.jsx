@@ -91,22 +91,18 @@ const FaceIdLogin = () => {
         console.log(response);
         console.log(response.vector);
 
-        if (response.success) {
-          const storedVector = response.vector;
-          console.log(storedVector);
+        const storedVector = response.vector;
+        console.log(storedVector);
 
-          const faceMatcher = new faceapi.FaceMatcher([storedVector]);
-          const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+        const faceMatcher = new faceapi.FaceMatcher([storedVector]);
+        const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
 
-          if (bestMatch.label === "person 1") {
-            setMessage("Authentication successful.");
-            video.srcObject.getTracks().forEach((track) => track.stop());
-            navigate("/chatbot");
-          } else {
-            setMessage("Authentication failed.");
-          }
+        if (bestMatch.label === "person 1") {
+          setMessage("Authentication successful.");
+          video.srcObject.getTracks().forEach((track) => track.stop());
+          navigate("/chatbot");
         } else {
-          setMessage("Login error.");
+          setMessage("Authentication failed.");
         }
       } catch (error) {
         setMessage("Login failed, please try again.");
