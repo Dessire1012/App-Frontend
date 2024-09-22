@@ -124,7 +124,7 @@ const FaceIdLogin = () => {
         if (bestMatch.label === "person 1") {
           setMessage("Authentication successful.");
           video.srcObject.getTracks().forEach((track) => track.stop());
-          navigate("/chatbot");
+          navigate("/chatbot", { state: { userId: response.id } });
         } else {
           setMessage("Authentication failed.");
         }
