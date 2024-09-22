@@ -99,6 +99,7 @@ export const invokeAgent = async (prompt) => {
     return await response.json();
   } catch (error) {
     console.error("Error trying to reach agent:", error);
-    throw error;
+    return { outputText: "Lo lamento pero no entendí tu mensaje, ¿podrías reformularlo de otra manera?" };
+    //throw error;
   }
 };

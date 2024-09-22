@@ -49,6 +49,12 @@ const Chatbot = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
+  };
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -101,6 +107,7 @@ const Chatbot = () => {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
               className="input-field"
+              onKeyDown={handleKeyPress}
             />
             <FaPaperPlane className="icon send-icon" onClick={handleSend} />
             <div className="dropdown-container">
