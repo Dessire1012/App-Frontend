@@ -9,24 +9,6 @@ import "./Styles/GBttn.css";
 function GBttn() {
   const navigate = useNavigate();
 
-  const generateRandomPassword = () => {
-    const length = 12;
-    const charset =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    let password = "";
-    while (!isPassword(password)) {
-      password = Array.from(crypto.getRandomValues(new Uint8Array(length)))
-        .map((n) => charset[n % charset.length])
-        .join("");
-    }
-    return password;
-  };
-
-  const isPassword = (str) => {
-    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    return re.test(str);
-  };
-
   const handleSuccess = async (response) => {
     try {
       const token = response.credential;
@@ -34,7 +16,6 @@ function GBttn() {
       const user_id = decodedToken.sub;
       const name = decodedToken.name;
       const email = decodedToken.email;
-      const password = generateRandomPassword();
       const photo = decodedToken.picture;
 
       Cookies.set("user_photo", photo, { expires: 7 });
@@ -45,7 +26,7 @@ function GBttn() {
         console.log("User logged in", user);
       } catch (loginError) {
         console.error("Login failed, attempting to register", loginError);
-        user = await registerUser({ user_id, name, email, password });
+        user = await registerUser({ user_id, name, email });
         console.log("User registered", user);
       }
       navigate("/chatbot", { state: { userId: user_id } });

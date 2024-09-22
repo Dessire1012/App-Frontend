@@ -32,24 +32,6 @@ function FbBttn() {
     })(document, "script", "facebook-jssdk");
   }, []);
 
-  const generateRandomPassword = () => {
-    const length = 12;
-    const charset =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    let password = "";
-    while (!isPassword(password)) {
-      password = Array.from(crypto.getRandomValues(new Uint8Array(length)))
-        .map((n) => charset[n % charset.length])
-        .join("");
-    }
-    return password;
-  };
-
-  const isPassword = (str) => {
-    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    return re.test(str);
-  };
-
   const handleFbLogin = () => {
     FB.login(
       (response) => {
@@ -69,7 +51,6 @@ function FbBttn() {
         const user_id = profile.id;
         const name = profile.name;
         const email = profile.email;
-        const password = generateRandomPassword();
         const photo = profile.picture.data.url;
 
         Cookies.set("user_photo", photo, { expires: 7 });
@@ -80,7 +61,7 @@ function FbBttn() {
           console.log("User logged in", user);
         } catch (loginError) {
           console.error("Login failed, attempting to register", loginError);
-          user = await registerUser({ user_id, name, email, password });
+          user = await registerUser({ user_id, name, email });
           console.log("User registered", user);
         }
         navigate("/chatbot", { state: { userId: user_id } });
