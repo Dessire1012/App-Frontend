@@ -138,82 +138,83 @@ const FaceIdLogin = () => {
   };
 
   return (
-    <div className="container-face">
-      <h2 className="title-face">Login with Face Recognition</h2>
+    <div class="container-face">
+      <div class="over-container">
+        <h2 class="title-face">Login with Face Recognition</h2>
+        <div class="video-container-face">
+          <video ref={videoRef} className="video-face" autoPlay muted></video>
+        </div>
 
-      <div className="video-container-face">
-        <video ref={videoRef} className="video-face" autoPlay muted></video>
-      </div>
+        <div className="controls-face">
+          {!showRegister && !showLogin && (
+            <div className="initial-buttons-face">
+              <div className="action-section">
+                <h3>Register if you are new</h3>
+                <button
+                  onClick={() => setShowRegister(true)}
+                  className="button-face"
+                >
+                  Register
+                </button>
+              </div>
+              <div className="action-section">
+                <h3>Sign in if you are back</h3>
+                <button
+                  onClick={() => setShowLogin(true)}
+                  className="button-face"
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          )}
 
-      <div className="controls-face">
-        {!showRegister && !showLogin && (
-          <div className="initial-buttons-face">
-            <div className="action-section">
-              <h3>Register if you are new</h3>
-              <button
-                onClick={() => setShowRegister(true)}
-                className="button-face"
-              >
-                Register
+          {showRegister && (
+            <div className="register-form-face">
+              <button onClick={startVideo} className="button-face">
+                Start Camera
+              </button>
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input-face"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-face"
+              />
+              <button onClick={handleRegister} className="button-enter">
+                Register Face
               </button>
             </div>
-            <div className="action-section">
-              <h3>Sign in if you are back</h3>
-              <button
-                onClick={() => setShowLogin(true)}
-                className="button-face"
-              >
+          )}
+
+          {showLogin && (
+            <div className="login-form-face">
+              <button onClick={startVideo} className="button-face">
+                Start Camera
+              </button>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-face"
+              />
+              <button onClick={handleLogin} className="button-enter">
                 Sign In
               </button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
-        {showRegister && (
-          <div className="register-form-face">
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="input-face"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input-face"
-            />
-            <button onClick={startVideo} className="button-face">
-              Start Camera
-            </button>
-            <button onClick={handleRegister} className="button-enter">
-              Register Face
-            </button>
-          </div>
-        )}
-
-        {showLogin && (
-          <div className="login-form-face">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input-face"
-            />
-            <button onClick={startVideo} className="button-face">
-              Start Camera
-            </button>
-            <button onClick={handleLogin} className="button-enter">
-              Sign In
-            </button>
-          </div>
-        )}
+        {message && <p className="message-face">{message}</p>}
       </div>
-
-      {message && <p className="message-face">{message}</p>}
     </div>
   );
 };
