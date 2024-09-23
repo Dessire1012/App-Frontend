@@ -86,6 +86,7 @@ export const invokeAgent = async (prompt) => {
    // Generar un nuevo sessionId
    sessionCounter += 1; // Incrementar el contador
    currentSessionId = `${Date.now()}-${sessionCounter}`; // Crear un ID único
+   console.log('Current Session ID:', currentSessionId);
 
   try {
     const response = await fetch(`http://localhost:3001/agent/invoke-agent`, {
