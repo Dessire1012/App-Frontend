@@ -80,8 +80,15 @@ export const sentimentAnalysis = async (text) => {
 };
 
 export const invokeAgent = async (prompt) => {
+  let currentSessionId = null; // Variable para almacenar el sessionId
+  let sessionCounter = 0; // Contador para garantizar unicidad
+
+   // Generar un nuevo sessionId
+   sessionCounter += 1; // Incrementar el contador
+   currentSessionId = `${Date.now()}-${sessionCounter}`; // Crear un ID único
+
   try {
-    const response = await fetch(`${API_URL}/agent/invoke-agent`, {
+    const response = await fetch(`http://localhost:3001/agent/invoke-agent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +96,7 @@ export const invokeAgent = async (prompt) => {
       body: JSON.stringify({
         agentId: "BGELUFMFO8",
         agentAliasId: "4W3EKJWXTC",
-        sessionId: 10,
+        sessionId: currentSessionId,
         prompt: prompt,
       }),
     });
