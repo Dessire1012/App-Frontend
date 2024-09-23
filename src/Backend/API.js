@@ -79,13 +79,15 @@ export const sentimentAnalysis = async (text) => {
   }
 };
 
-export const invokeAgent = async (prompt) => {
-  let currentSessionId = null; // Variable para almacenar el sessionId
-  let sessionCounter = 0; // Contador para garantizar unicidad
+let currentSessionId = null; // Variable para almacenar el sessionId
+let sessionCounter = 0; // Contador para garantizar unicidad
 
-   // Generar un nuevo sessionId
-   sessionCounter += 1; // Incrementar el contador
-   currentSessionId = `${Date.now()}-${sessionCounter}`; // Crear un ID único
+export const invokeAgent = async (prompt) => {
+  // Generar un nuevo sessionId si no hay uno activo
+  if (!currentSessionId) {
+    sessionCounter += 1; // Incrementar el contador
+    currentSessionId = `${Date.now()}-${sessionCounter}`; // Crear un ID único
+  }
 
   try {
     const response = await fetch(`http://localhost:3001/agent/invoke-agent`, {
