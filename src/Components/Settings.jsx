@@ -10,6 +10,7 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const location = useLocation();
   const { userId } = location.state || {};
@@ -51,15 +52,15 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
 
       // Condiciones para verificar si hubo cambios antes de hacer la actualización
       if (name !== userName) {
-        await updateUserName();
+        await updateUserName(userId, name);
       }
 
       if (email !== userEmail) {
-        await updateUserEmail();
+        await updateUserEmail(userId, email);
       }
 
       if (password) {
-        await updateUserPassword();
+        await updateUserPassword(userId, password);
       }
 
       // Si todo sale bien, puedes mostrar un mensaje de éxito o resetear el formulario.
@@ -126,6 +127,8 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Value"
+                    value=""
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </label>
