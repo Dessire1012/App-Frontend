@@ -1,6 +1,8 @@
 import "./Styles/Settings.css";
 import { FaUser } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { updateUserEmail, updateUserName, updateUserPassword } from "../Backend/API";
+import { useLocation } from "react-router-dom";
 
 const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -8,6 +10,10 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
+
+  const location = useLocation();
+  const { userId } = location.state || {};
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (userName) {
@@ -37,6 +43,31 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
   };
 
   if (!isOpen) return null;
+
+  const handleUpdate = async () => {
+    try {
+      // Reseteamos el mensaje de error
+      setErrorMessage(null);
+
+      // Condiciones para verificar si hubo cambios antes de hacer la actualización
+      if (name !== userName) {
+        await updateUserName();
+      }
+
+      if (email !== userEmail) {
+        await updateUserEmail();
+      }
+
+      if (password) {
+        await updateUserPassword();
+      }
+
+      // Si todo sale bien, puedes mostrar un mensaje de éxito o resetear el formulario.
+    } catch (error) {
+      // Si ocurre algún error, lo mostramos en pantalla
+      setErrorMessage("Hubo un error actualizando los datos. Inténtalo de nuevo.");
+    }
+  };
 
   return (
     <div className="modal-settings">
@@ -105,9 +136,10 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
                 <button className="delete-user" onClick={handleNoAction}>
                   Delete User
                 </button>
-                <button type="submit" className="done-button">
+                <button type="submit" className="done-button" onClick={handleUpdate}>
                   Done
                 </button>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               </div>
             </form>
           </div>

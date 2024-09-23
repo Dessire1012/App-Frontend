@@ -103,3 +103,60 @@ export const invokeAgent = async (prompt) => {
     //throw error;
   }
 };
+
+export const updateUserName = async (id, name) => {
+  try {
+    const response = await fetch(`${API_URL}/user/editUserName`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, name }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating user name:", error);
+    throw error;
+  }
+}
+
+export const updateUserPassword = async (id, password) => {
+  try {
+    const response = await fetch(`${API_URL}/user/editUserPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, password }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating user password:", error);
+    throw error;
+  }
+}
+
+export const updateUserEmail = async (id, email) => {
+  try {
+    const response = await fetch(`${API_URL}/user/editUserEmail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, email }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating user email:", error);
+    throw error;
+  }
+}
