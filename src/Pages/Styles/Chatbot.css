@@ -227,14 +227,17 @@
   z-index: 1000;
   max-height: 150px;
   overflow-y: auto;
-  top: 850px;
+  left: auto;
+  bottom: 60px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .font-list li {
   padding: 5px 10px;
-  cursor: pointer; 
+  cursor: pointer;
 }
+
 .font-list li:hover {
   background-color: #f0f0f0;
 }

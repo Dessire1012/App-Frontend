@@ -25,17 +25,34 @@ const Chatbot = () => {
   const [chatFont, setChatFont] = useState("Arial");
   const [showFontList, setShowFontList] = useState(false);
 
-  // Lista de fuentes para alternar
-  const fonts = ["Arial", "Courier New", "Georgia", "Times New Roman", "Verdana", "Comic Sans MS", "Algerian", "Impact", "Lucida Console", "Tahoma", "Trebuchet MS", 
-    "Palatino Linotype", "Segoe UI", "Gill Sans", "Garamond", "Franklin Gothic Medium", "Helvetica", "Calibri", "Futura", "Baskerville"];
+  const fonts = [
+    "Arial",
+    "Courier New",
+    "Georgia",
+    "Times New Roman",
+    "Verdana",
+    "Comic Sans MS",
+    "Algerian",
+    "Impact",
+    "Lucida Console",
+    "Tahoma",
+    "Trebuchet MS",
+    "Palatino Linotype",
+    "Segoe UI",
+    "Gill Sans",
+    "Garamond",
+    "Franklin Gothic Medium",
+    "Helvetica",
+    "Calibri",
+    "Futura",
+    "Baskerville",
+  ];
 
-  // Función para seleccionar una fuente de la lista
   const handleFontSelect = (font) => {
-    setChatFont(font); // Cambia la fuente
-    setShowFontList(false); // Oculta la lista de fuentes
+    setChatFont(font);
+    setShowFontList(false);
   };
 
-  // Función para alternar la visibilidad de la lista de fuentes
   const toggleFontList = () => {
     setShowFontList(!showFontList);
   };
@@ -119,19 +136,20 @@ const Chatbot = () => {
         </div>
         <div className="chatbot-input">
           <div className="input-container">
-            <FaFont className="font-icon" onClick={toggleFontList}/>
-              {showFontList && (
-                <ul className="font-list">
-                  {fonts.map((font, index) => (
-                    <li 
-                      key={index}
-                      onClick={() => handleFontSelect(font)}
-                      style={{ fontFamily: font, cursor: 'pointer' }}>
-                      {font}
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <FaFont className="font-icon" onClick={toggleFontList} />
+            {showFontList && (
+              <ul className="font-list">
+                {fonts.map((font, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleFontSelect(font)}
+                    style={{ fontFamily: font, cursor: "pointer" }}
+                  >
+                    {font}
+                  </li>
+                ))}
+              </ul>
+            )}
             <input
               type="text"
               value={input}
