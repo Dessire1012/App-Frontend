@@ -46,20 +46,24 @@ const Settings = ({ isOpen, onClose, userPhoto, userName, userEmail }) => {
   if (!isOpen) return null;
 
   const handleUpdate = async () => {
+    console.log("Updating user data");
     try {
       // Reseteamos el mensaje de error
       setErrorMessage(null);
 
       // Condiciones para verificar si hubo cambios antes de hacer la actualización
       if (name !== userName) {
+        console.log("Updating name");
         await updateUserName(userId, name);
       }
 
       if (email !== userEmail) {
+        console.log("Updating email");
         await updateUserEmail(userId, email);
       }
 
       if (password) {
+        console.log("Updating password");
         await updateUserPassword(userId, password);
       }
 
