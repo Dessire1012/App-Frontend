@@ -105,12 +105,12 @@ const Chatbot = () => {
           .filter((msg) => msg.user)
           .map((msg) => (msg.text.endsWith(".") ? msg.text : `${msg.text}.`))
           .join(" ");
-        console.log(userMessages);
+        //console.log(userMessages);
         const response = await sentimentAnalysis({ text: userMessages });
         setSentimentResult(response.body);
-        console.log(response);
+        //console.log(response);
       } catch (error) {
-        console.error("Error al analizar el sentimiento:", error);
+        //console.error("Error al analizar el sentimiento:", error);
       } finally {
         setIsLoading(false);
       }

@@ -22,7 +22,7 @@ const FaceIdLogin = () => {
         await faceapi.nets.faceLandmark68Net.loadFromUri("/models");
         setIsModelLoaded(true);
       } catch (error) {
-        console.error("Error loading models:", error);
+        //console.error("Error loading models:", error);
       }
     };
 
@@ -36,7 +36,7 @@ const FaceIdLogin = () => {
         videoRef.current.srcObject = stream;
       })
       .catch((error) => {
-        console.error("Error accessing camera:", error);
+        //console.error("Error accessing camera:", error);
       });
   };
 
@@ -94,7 +94,7 @@ const FaceIdLogin = () => {
           try {
             storedVector = JSON.parse(storedVector);
           } catch (error) {
-            console.error("Error parsing stored vector:", error);
+            //console.error("Error parsing stored vector:", error);
             setMessage("Error parsing stored vector.");
             return;
           }
@@ -108,15 +108,15 @@ const FaceIdLogin = () => {
           storedVector = Object.values(storedVector);
         }
 
-        console.log(storedVector);
+        //console.log(storedVector);
 
         if (!(storedVector instanceof Float32Array)) {
           storedVector = new Float32Array(storedVector);
         }
 
-        console.log("Stored vector length:", storedVector.length);
-        console.log("Detected vector length:", detection.descriptor.length);
-        console.log("Detected vector:", detection.descriptor);
+        //console.log("Stored vector length:", storedVector.length);
+        //console.log("Detected vector length:", detection.descriptor.length);
+        //console.log("Detected vector:", detection.descriptor);
 
         const faceMatcher = new faceapi.FaceMatcher([storedVector]);
         const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
@@ -129,7 +129,7 @@ const FaceIdLogin = () => {
           setMessage("Authentication failed.");
         }
       } catch (error) {
-        console.error("Error during authentication:", error);
+        //console.error("Error during authentication:", error);
         setMessage("Login failed, please try again.");
       }
     } else {

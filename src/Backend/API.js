@@ -4,7 +4,7 @@ const API_URL =
 export const loginUser = async (credentials) => {
   try {
     const payload = JSON.stringify(credentials);
-    console.log("Request Payload:", payload);
+    //console.log("Request Payload:", payload);
 
     const response = await fetch(`${API_URL}/user/login`, {
       method: "POST",
@@ -15,13 +15,13 @@ export const loginUser = async (credentials) => {
     });
     if (!response.ok) {
       const errorDetails = await response.json();
-      console.error("Response Error Details:", errorDetails);
+      //console.error("Response Error Details:", errorDetails);
       throw new Error(`Network response was not ok: ${errorDetails.message}`);
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error logging in:", error);
+    //console.error("Error logging in:", error);
     throw error;
   }
 };
@@ -40,7 +40,7 @@ export const registerUser = async (userData) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error registering:", error);
+    //console.error("Error registering:", error);
     throw error;
   }
 };
@@ -55,7 +55,7 @@ export const getUserById = async (id) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    //console.error("Error fetching user data:", error);
     throw error;
   }
 };
@@ -74,7 +74,7 @@ export const sentimentAnalysis = async (text) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error analyzing the sentiment:", error);
+    //console.error("Error analyzing the sentiment:", error);
     throw error;
   }
 };
@@ -107,7 +107,7 @@ export const invokeAgent = async (prompt) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error trying to reach agent:", error);
+    //console.error("Error trying to reach agent:", error);
     return { outputText: "Lo lamento pero no entendí tu mensaje, ¿podrías reformularlo de otra manera?" };
     //throw error;
   }
@@ -127,7 +127,7 @@ export const updateUserName = async (id, name) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error updating user name:", error);
+    //console.error("Error updating user name:", error);
     throw error;
   }
 }
@@ -146,7 +146,7 @@ export const updateUserPassword = async (id, password) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error updating user password:", error);
+    //console.error("Error updating user password:", error);
     throw error;
   }
 }
@@ -165,7 +165,7 @@ export const updateUserEmail = async (id, email) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error updating user email:", error);
+    //console.error("Error updating user email:", error);
     throw error;
   }
 }

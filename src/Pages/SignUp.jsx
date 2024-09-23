@@ -24,10 +24,10 @@ function SignUp() {
     }
     try {
       const data = await registerUser({ name, email, password });
-      console.log("Sign Up successful:", data);
+      //console.log("Sign Up successful:", data);
       navigate("/");
     } catch (error) {
-      console.error("Sign Up failed:", error);
+      //console.error("Sign Up failed:", error);
       setErrorMessage("Sign Up failed. Please try again.");
     }
   };

@@ -17,12 +17,12 @@ function Login() {
     e.preventDefault();
     try {
       const data = await loginUser({ email, password });
-      console.log("Login successful:", data);
+      //console.log("Login successful:", data);
       const userId = data.id;
-      console.log("User ID:", userId);
+      //console.log("User ID:", userId);
       navigate("/chatbot", { state: { userId: userId } });
     } catch (error) {
-      console.error("Login failed:", error);
+      //console.error("Login failed:", error);
       setErrorMessage("Incorrect email or password.");
     }
   };

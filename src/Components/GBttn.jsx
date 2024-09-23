@@ -23,20 +23,20 @@ function GBttn() {
       let user;
       try {
         user = await loginUser({ email, user_id });
-        console.log("User logged in", user);
+        //console.log("User logged in", user);
       } catch (loginError) {
-        console.error("Login failed, attempting to register", loginError);
+        //console.error("Login failed, attempting to register", loginError);
         user = await registerUser({ user_id, name, email });
-        console.log("User registered", user);
+        //console.log("User registered", user);
       }
       navigate("/chatbot", { state: { userId: user_id } });
     } catch (error) {
-      console.error("Operation failed", error);
+      //console.error("Operation failed", error);
     }
   };
 
   const handleError = (error) => {
-    console.error("Login failed", error);
+    //console.error("Login failed", error);
   };
 
   return (
